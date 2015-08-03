@@ -2,6 +2,7 @@ FROM experimentalplatform/ubuntu:latest
 
 RUN apt-get update && apt-get install -y python
 
-RUN echo "hello world" > /var/www/index.html
+RUN mkdir -p /hello-world
+RUN echo "hello world" > /hello-world/index.html
 
-# CMD python SimpleHTTPServer -m 80
+CMD cd /hello-world && python SimpleHTTPServer -m 80
