@@ -1,8 +1,14 @@
 FROM experimentalplatform/ubuntu:latest
 
-RUN apt-get update && apt-get install -y python
+RUN \
+  add-apt-repository -y ppa:nginx/stable && \
+  apt-get update && \
+  apt-get install -y nginx && \
+  echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 
-RUN mkdir -p /hello-world
-RUN echo "hello world" > /hello-world/index.html
+ADD index.html /var/www/html/index.html
 
-CMD cd /hello-world && python SimpleHTTPServer -m 80
+CMD ["nginx"]
+
+EXPOSE 80
+EXPOSE 443
